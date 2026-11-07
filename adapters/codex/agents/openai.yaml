@@ -1,0 +1,14 @@
+# Optional Codex UI metadata. Only fields documented by OpenAI are used here.
+# See https://developers.openai.com/codex/skills
+interface:
+  display_name: "PHP Encrypted Source Recovery"
+  short_description: "Recover PHP source from ionCube, SwooleCompiler, SourceGuardian or XLoad files."
+  default_prompt: "Decode the PHP file at the path I give you (or the one I uploaded). Resolve the path first, then check the API_KEY gate."
+  brand_color: "#4F46E5"
+
+policy:
+  allow_implicit_invocation: true
+
+# The skill needs `python3` and `curl` on PATH. Codex has no documented
+# "cli" entry for dependencies.tools, so runtime prerequisites are stated in
+# SKILL.md section 10 instead of being declared here as a false manifest field.

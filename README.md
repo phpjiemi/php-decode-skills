@@ -55,6 +55,15 @@ The canonical file deliberately satisfies the **strictest common denominator**:
 - The body uses harness-neutral verbs and relative paths, never a client-specific tool
   name.
 
+## Versioning
+
+The single source of truth is the top-level `version` field in `targets.json`
+(initial release: `0.1.0`). `build.py` injects it into the WorkBuddy marketplace
+`SKILL.md` frontmatter and expands `{{version}}` inside adapter files such as
+`PACKAGE.md`; `validate.py` fails the build if any generated file still carries an
+unresolved placeholder. To bump the release, change that one field and rebuild -
+never hand-edit `dist/`.
+
 ## Quick start
 
 Requires Python 3.9+ (standard library only). The bundled client additionally needs

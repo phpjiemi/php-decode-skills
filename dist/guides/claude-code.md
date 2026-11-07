@@ -1,0 +1,19 @@
+# Claude Code - repo guidance snippet
+
+Merge the text below into the project's instruction file.
+
+---
+
+## PHP decode skill
+
+At the start of any PHP decryption, deobfuscation, or encrypted-source recovery
+task, load the `php-decode` skill from `.claude/skills/` before taking any
+technical step. It enforces two hard gates: never call the decode API until a real
+PHP file is located (upload, absolute path, repo-relative path, directory scan, or
+glob - resolve it with `--root`), and never run official decoding without `API_KEY`
+configured. Use the bundled `scripts/php_decode_api.py` for submissions and polling.
+
+When a trial preview is returned, paste every decoded line from the client's
+`preview.text` into the result report; a line-count summary is not a result.
+
+Never write an API key into `CLAUDE.md`, skill files, or reports.

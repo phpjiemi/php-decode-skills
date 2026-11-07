@@ -1,0 +1,114 @@
+{
+  "schema": 1,
+  "version": "0.1.0",
+  "name_pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+  "targets": [
+    {
+      "id": "codex",
+      "platform": "OpenAI Codex CLI",
+      "dist": "codex/{skill}",
+      "description_max": 500,
+      "frontmatter": {},
+      "extra_files": [
+        {"src": "adapters/codex/agents/openai.yaml", "dst": "agents/openai.yaml"}
+      ],
+      "guides": ["adapters/codex/AGENTS.md.snippet"],
+      "install": {
+        "project": ".agents/skills/{skill}",
+        "user": "~/.agents/skills/{skill}",
+        "legacy_user": "~/.codex/skills/{skill}"
+      },
+      "notes": "Official discovery path is .agents/skills (repo root, parent dirs, $HOME/.agents/skills, /etc/codex/skills). ~/.codex/skills is kept as a legacy local fallback. AGENTS.md holds repo rules; the skill body lives in SKILL.md."
+    },
+    {
+      "id": "claude-code",
+      "platform": "Claude Code",
+      "dist": "claude-code/{skill}",
+      "description_max": 1024,
+      "frontmatter": {
+        "when_to_use": "Use at the start of any PHP decryption, deobfuscation, or encrypted-source recovery task, before running any decode command.",
+        "allowed-tools": "Read, Grep, Bash",
+        "user-invocable": true
+      },
+      "extra_files": [],
+      "guides": ["adapters/claude-code/CLAUDE.md.snippet"],
+      "install": {
+        "project": ".claude/skills/{skill}",
+        "user": "~/.claude/skills/{skill}"
+      },
+      "notes": "Frontmatter fields are Claude Code specific and are ignored (not rejected) by other clients. name must avoid the reserved words anthropic/claude; description must state both what and when. allowed-tools pre-approves tools for the invoking turn only."
+    },
+    {
+      "id": "deepseek-harness",
+      "platform": "DeepSeek Harness (dsh)",
+      "dist": "deepseek-harness/{skill}",
+      "description_max": 500,
+      "frontmatter": {
+        "whenToUse": "Trigger when the user asks to decode, decrypt, deobfuscate, or recover ionCube/SwooleCompiler/SourceGuardian/XLoad PHP files."
+      },
+      "extra_files": [],
+      "guides": [],
+      "install": {
+        "project": ".dsh/skills/{skill}",
+        "compat_project": ".agents/skills/{skill}",
+        "user": "~/.dsh/skills/{skill}",
+        "compat_user": "~/.agents/skills/{skill}"
+      },
+      "notes": "dsh uses camelCase whenToUse (not when_to_use). name must match ^[a-z0-9]+(-[a-z0-9]+)*$ and equal the folder name. description is truncated at 500 chars. Precedence ranks: .dsh/skills 100 > .agents/skills 200 > customSkillDirs 300 > ~/.dsh/skills 400 > ~/.agents/skills 500. The scanner does not recurse into nested skill folders; a flat <name>.md also works."
+    },
+    {
+      "id": "workbuddy",
+      "platform": "WorkBuddy (local install)",
+      "dist": "workbuddy/{skill}",
+      "description_max": 1024,
+      "frontmatter": {
+        "allowed-tools": "Read, Bash"
+      },
+      "extra_files": [],
+      "guides": [],
+      "install": {
+        "project": ".codebuddy/skills/{skill}",
+        "user": "~/.workbuddy/skills/{skill}"
+      },
+      "notes": "Local skills require only name + description; allowed-tools is optional. A plugin can bundle the same folder under its skills/ directory with .codebuddy-plugin/plugin.json."
+    },
+    {
+      "id": "workbuddy-marketplace",
+      "platform": "WorkBuddy (marketplace ZIP)",
+      "dist": "workbuddy-marketplace/{skill}",
+      "description_max": 1024,
+      "frontmatter": {
+        "display_name": "PHP 加密源码解码",
+        "display_name_en": "PHP Encrypted Source Recovery",
+        "description_zh": "按标准流程恢复 ionCube、SwooleCompiler、SourceGuardian、XLoad 加密的 PHP 源码，支持上传、绝对路径、项目相对路径或目录扫描定位文件，含密钥引导、任务轮询、结果验证；免费预览内容逐行原样展示。",
+        "description_en": "Recover PHP source from ionCube, SwooleCompiler, SourceGuardian, or XLoad encoded files. Locates the file from an upload, absolute path, repo-relative path, or directory scan, then enforces the API-key gate, polls jobs, and verifies results. Trial preview lines are always shown verbatim.",
+        "examples_zh": ["解码我上传的 ionCube 文件", "把免费预览的内容贴出来", "解码 ./modules/gateways/foo.php", "扫描这个项目目录找出加密的 PHP 文件", "排查自有部署中加密 init.php 的报错"],
+        "examples_en": ["Decode the ionCube file I uploaded", "Show me the trial preview content", "Decode ./modules/gateways/foo.php", "Scan this project directory for encoded PHP files", "Troubleshoot an encoded init.php error in my own deployment"],
+        "author": "php-decode-skills",
+        "allowed-tools": "Read, Bash"
+      },
+      "inject_version": true,
+      "zip": true,
+      "extra_files": [],
+      "guides": [],
+      "install": {},
+      "notes": "Open-platform upload requires display_name, display_name_en, description_zh, description_en, version, author, plus name and description. The ZIP root contains the <skill-name>/ folder with SKILL.md and its references/ and scripts/ subfolders. User uploads the ZIP in the Skill Marketplace form."
+    },
+    {
+      "id": "doubao-work",
+      "platform": "Doubao Work",
+      "dist": "doubao-work/{skill}",
+      "description_max": 1024,
+      "frontmatter": {},
+      "append_body": "adapters/doubao-work/ADAPTER.md",
+      "zip": true,
+      "extra_files": [
+        {"src": "adapters/doubao-work/PACKAGE.md", "dst": "PACKAGE.md"},
+        {"src": "adapters/doubao-work/assets/icon.svg", "dst": "assets/icon.svg"}
+      ],
+      "guides": [],
+      "install": {},
+      "notes": "Upload a skill folder or ZIP in the Doubao client (needs at least a SKILL.md with YAML name + description) or publish through the open platform (ZIP with name, summary, icon, version). Outbound HTTP should go through approved connectors or registered tools; cloud sandboxes may not execute bundled scripts, so the appendix documents the tool-based fallback. Local and cloud skill sets are not shared."
+    }
+  ]
+}

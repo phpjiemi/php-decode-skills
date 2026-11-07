@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="PHP Encrypted Source Recovery">
+  <rect x="4" y="4" width="120" height="120" rx="24" fill="#4F46E5"/>
+  <rect x="30" y="52" width="68" height="54" rx="10" fill="#FFFFFF" opacity="0.95"/>
+  <path d="M48 52V40a16 16 0 0 1 32 0v12" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round"/>
+  <circle cx="64" cy="76" r="7" fill="#4F46E5"/>
+  <rect x="61" y="80" width="6" height="15" rx="3" fill="#4F46E5"/>
+  <path d="M22 30h14M92 30h14M22 98h10M96 98h10" stroke="#C7D2FE" stroke-width="6" stroke-linecap="round"/>
+</svg>

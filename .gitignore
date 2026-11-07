@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+*.zip.tmp
+
+# Local agent guidance and workspace state are intentionally not versioned.
+/AGENTS.md
+/.workbuddy/
